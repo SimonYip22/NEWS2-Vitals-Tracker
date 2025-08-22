@@ -1,0 +1,8 @@
+# For data handling and persistence
+pandas>=2.1.0
+
+# For trend visualization
+matplotlib>=3.7.0
+
+# Optional: for colored CLI output
+colorama>=0.4.6
