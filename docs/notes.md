@@ -13,12 +13,49 @@
 - Use data structures that allow easy retrieval and future computation (alerts, trend visualization)  
 
 **Plan / Thoughts**  
-- Create a Python dictionary keyed by patient ID for each set of vitals  
-- Prompt the user for each vital using `input()`  
-- Validate numerical ranges for each vital sign  
-- Store each patient entry as a dictionary inside a list to allow multiple patient tracking  
+1. Create a Python dictionary keyed by patient ID for each set of vitals:
+    - Choose names (keys) you’ll use consistently (e.g., "blood_pressure", "systolic", "diastolic", "heart_rate", "temperature", "oxygen_saturation").
+    - Decide data types: BP as integers; HR as integer; Temp as float; O₂ as integer.
+    - Nest BP inside a parent BP key so you don’t lose which number is which.
+2. Prompt the user for each vital using `input()`, plan UX:
+	1.	“Enter systolic BP (mmHg):”
+	2.	“Enter diastolic BP (mmHg):”
+	3.	“Enter heart rate (bpm):”
+	4.	“Enter temperature (°C):”
+	5.	“Enter oxygen saturation (%):”  
+3. Validate numerical ranges for each vital sign (safe ranges to enforce):
+	- Systolic BP: 50–250
+    - Diastolic BP: 30–150
+	- Heart Rate: 30–220
+	- Temperature (°C): 30.0–45.0
+	- Oxygen Saturation (%): 50–100
+4. Plan validation loop:
+    - Show a prompt → try converting to the right type → if conversion fails or it’s out of range, show a helpful message and ask again → else return the value
+    - One reusable function in your file can handle: prompt text, type (int/float), and min/max
+5. Store each patient entry as a dictionary inside a list to allow multiple patient tracking  
+    1.	Ask for systolic, validate.
+	2.	Ask for diastolic, validate.
+	3.	Ask for heart rate, validate.
+	4.	Ask for temperature, validate.
+	5.	Ask for oxygen saturation, validate.
+	6.	Construct reading dict using the exact keys I chose in Task 1.
+6. Manual test cases (run cases):
+    1.  Happy path: 120 / 80, 72, 37.0, 98 → Should accept and print.
+	2.	Bad type: “abc” for HR → Should reprompt, then accept a valid number.
+	3.	Out of range: 500 for HR → Should reprompt.
+	4.	Edge case: Minimum/maximum allowed values → Should accept.
+7. Optional extra for Day 1:
+	- After printing the reading, ask: “Record another? (y/n)” and loop the whole collection.
+	- If you do this, you’re ready for Day 2 (alerts and thresholds).
+
 
 **Reflection**  
 - Input validation is critical for reliability in CLI tools  
 - Organizing data early simplifies future alerting and visualization features  
 - Using dictionaries allows easy access and expansion (timestamps, notes, additional vitals)
+
+**Implement on day 2**
+How we’ll use this on Day 2:
+- Add alert thresholds (e.g., HR > 120, Temp ≥ 38.0).
+- Program will flag abnormal values immediately after input or in a summary.
+- Sketch CSV/JSON persistence and prep for trend visualization.
