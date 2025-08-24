@@ -1,0 +1,5 @@
+- Learned how to break a problem into modular functions.
+- Understood try/except for input validation and numeric conversion.
+- Practiced mapping user input to nested data structures.
+- Realized the value of reusing functions instead of repeating code.
+- Encountered challenges with loops, nested dictionaries, and type handling—but overcame them by thinking logically about what each step should do.

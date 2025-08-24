@@ -29,8 +29,9 @@
 	- Heart Rate: 30–220
 	- Temperature (°C): 30.0–45.0
 	- Oxygen Saturation (%): 50–100
-4. Plan validation loop:
+4. Plan modular validation loop:
     - Show a prompt → try converting to the right type → if conversion fails or it’s out of range, show a helpful message and ask again → else return the value
+    - Loop through each vital, validating and mapping to the dictionary.
     - One reusable function in your file can handle: prompt text, type (int/float), and min/max
 5. Store each patient entry as a dictionary inside a list to allow multiple patient tracking  
     1.	Ask for systolic, validate.
@@ -44,14 +45,16 @@
 	2.	Bad type: “abc” for HR → Should reprompt, then accept a valid number.
 	3.	Out of range: 500 for HR → Should reprompt.
 	4.	Edge case: Minimum/maximum allowed values → Should accept.
-7. Optional extra for Day 1:
+7. Add a repeat loop to allow multiple sets of inputs for testing:
 	- After printing the reading, ask: “Record another? (y/n)” and loop the whole collection.
 	- If you do this, you’re ready for Day 2 (alerts and thresholds).
 
 **Reflection**  
-- Input validation is critical for reliability in CLI tools  
-- Organizing data early simplifies future alerting and visualization features  
-- Using dictionaries allows easy access and expansion (timestamps, notes, additional vitals)
+- Learned how to break a problem into modular functions.
+- Understood try/except for input validation and numeric conversion.
+- Practiced mapping user input to nested data structures.
+- Realized the value of reusing functions instead of repeating code.
+- Encountered challenges with loops, nested dictionaries, and type handling—but overcame them by thinking logically about what each step should do.
 
 **Implement on day 2**
 How we’ll use this on Day 2:
