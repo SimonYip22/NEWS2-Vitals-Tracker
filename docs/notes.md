@@ -48,7 +48,6 @@
 	- After printing the reading, ask: “Record another? (y/n)” and loop the whole collection.
 	- If you do this, you’re ready for Day 2 (alerts and thresholds).
 
-
 **Reflection**  
 - Input validation is critical for reliability in CLI tools  
 - Organizing data early simplifies future alerting and visualization features  
