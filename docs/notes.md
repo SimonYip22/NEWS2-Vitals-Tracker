@@ -2,17 +2,17 @@
 
 ## Day 1: Input & Data Structure
 
-**Goals**  
+### Goals 
 - Define which patient vitals to track (BP, HR, RR, Temp, O₂)  
 - Implement robust input handling  
 - Store patient data efficiently  
 
-**Goals Explanation**  
+### Goals Explanation
 - Track essential vitals for monitoring patient status  
 - Ensure inputs are validated to avoid incorrect data  
 - Use data structures that allow easy retrieval and future computation (alerts, trend visualization)  
 
-**Plan / Thoughts**  
+### Plan / Thoughts 
 1. Create a Python dictionary keyed by patient ID for each set of vitals:
     - Choose names (keys) you’ll use consistently (e.g., "blood_pressure", "systolic", "diastolic", "heart_rate", "temperature", "oxygen_saturation").
     - Decide data types: BP as integers; HR as integer; Temp as float; O₂ as integer.
@@ -52,14 +52,14 @@
 	- After printing the reading, ask: “Record another? (y/n)” and loop the whole collection.
 	- If you do this, you’re ready for Day 2 (alerts and thresholds).
 
-**Reflection**  
+### Reflection  
 - Learned how to break a problem into modular functions.
 - Understood try/except for input validation and numeric conversion.
 - Practiced mapping user input to nested data structures.
 - Realized the value of reusing functions instead of repeating code.
 - Encountered challenges with loops, nested dictionaries, and type handling—but overcame them by thinking logically about what each step should do.
 
-**Implement on day 2**
+### Implement on day 2
 How we’ll use this on Day 2:
 - Add alert thresholds (e.g., HR > 120, Temp ≥ 38.0).
 - Program will flag abnormal values immediately after input or in a summary.
@@ -69,14 +69,14 @@ How we’ll use this on Day 2:
 
 ## Day 2: Tiered Alert Logic (based on NEWS2 ranges)
 
-**Goals**
+### Goals
 - Move beyond binary abnormal/normal flags by implementing tiered alerts (normal, mild, moderate, severe) for each vital sign.
 - Implement conditional checks to flag abnormal readings
 - Display clear alert messages for abnormal vitals immediately and/or in summary
 - Make the program clinically interpretable by aligning thresholds with NEWS2 scoring ranges.
 - Begin planning for persistence (CSV/JSON) and trend visualization
 
-**Goals Explanation**
+### Goals Explanation
 - Normal ranges are essential for deciding whether a patient’s reading is safe or concerning.
 - Automated checks improve usability by instantly highlighting risks.
 - Alerts must be informative but not overwhelming, balancing clinical accuracy with readability.
@@ -86,7 +86,7 @@ How we’ll use this on Day 2:
 - This improves the program’s realism, usability, and future scalability.
 
 
-**Plan/Thoughts**
+### Plan/Thoughts
 1.	Define thresholds for each vital, assign severity levels (Normal, Mild, Moderate, Severe) mapped from NEWS2 scores (0–3):
 	- Systolic BP: Normal 111–219; Mild Alert 101–110, Moderate Alert 91–100, Severe Alert ≤90 or ≥220
 	- Diastolic BP: Normal 60–90; Alert <60 or >90. High Alert <50 or ≥110. Not included in scoring just “⚠️ clinically abnormal” 
@@ -117,7 +117,7 @@ How we’ll use this on Day 2:
 	- Allows repeating input sessions without modifying the reference/global dictionary.
 	- Challenge: Multi-level loops + dictionary iteration was mentally heavy, required careful attention to variable names and indentation.
 
-**Reflection**
+### Reflection
 - Conceptual difficulty: Nested dictionaries, multiple loops, tuple vs list handling, None as a range boundary.
 - Debugging/Amendments:
 	- Changed user_inputs() to return a local dictionary rather than modifying the global vitals dictionary.
@@ -139,8 +139,75 @@ How we’ll use this on Day 2:
 	- Can be repeated for multiple patient entries without losing data.
 
 
-**Next Steps/Day 3 Prep**
+### Next Steps/Day 3 Prep
 - Implement storage of multiple vitals readings in a session log.
 - Start designing CSV/JSON persistence and timestamping.
 - Consider plotting trends and highlighting worst alerts over time.
 - Review unit tests and edge cases (boundary values, multiple simultaneous alerts).
+
+
+
+## Day 3: Data Persistence (CSV/JSON) & NEWS2 Scoring Implementation
+
+### Goals 
+1.	Enable saving patient vitals into persistent storage.
+2.	Implement NEWS2 scoring for each set of vitals.
+3.	Allow retrieval of historical patient data.
+4.	Handle nested vitals (blood pressure) and selective scoring.
+5.	Test reading, writing, and calculations for reliability.
+
+### Goals Explanation  
+- **Persistence** ensures vitals are stored even after program exit.
+- **NEWS2 scoring** converts alerts into a numeric score, allowing trend analysis.
+- **Nested vitals handling** (BP systolic/diastolic) ensures correct scoring and display.
+- **Historical retrieval** allows trend analysis, forming the foundation for visualisation.  
+- **Testing** guarantees data is stored/retrieved correctly without corruption.  
+
+### Plan / Thoughts  
+- Why CSV (not JSON)?
+	- Vitals are tabular, time-series data, making CSV the natural choice. Rows = measurements, columns = vital signs
+	- Easy to open in Excel/Sheets for quick checks
+	- Directly supported by pandas/matplotlib for plotting
+	- Lightweight, human-readable
+	- JSON is better for nested/complex data, but here CSV keeps things simple, efficient, and visualisation-ready.
+	- Use **CSV** for human-readable storage, **JSON** for structured data.  
+- Main helper functions implemented:
+	- validate_input(prompt, min_value, max_value, data_type=int) → ensures valid numeric input for any vital.
+	- user_inputs() → collects all patient vitals, including nested BP, and returns as dictionary.
+	- check_alert(vital_name, value) → determines alert level based on thresholds.
+	- get_alert_message(alert_level, alert_messages) → maps alert levels to human-readable messages.
+	- flatten_vitals(patient_vitals) → converts nested dictionary (BP) to flat dictionary for CSV.
+	- get_or_create_patient_id() → tracks multiple patients, assigns new IDs, or returns existing ID.
+	- save_to_csv(patient_vitals, total_score, filename="vitals.csv") → stores vitals, patient ID, timestamp, and total NEWS2 score.
+	- load_from_csv(patient_id, filename="vitals.csv") → retrieves historical vitals for a given patient.
+	- print_patient_vitals(patient_id) → prints last few entries for a patient in a readable format.
+	- find_patient_id() → allows user to locate patient ID via name + DOB.
+- NEWS2 scoring:
+	- Alert levels mapped to numeric scores: "Normal": 0, "Mild Alert": 1, "Moderate Alert": 2, "Severe Alert": 3.
+	- Only systolic BP counted in total score; diastolic printed but not scored.
+- Flatten nested dictionaries for CSV storage (bp_systolic, bp_diastolic).
+- Added patient mapping (get_or_create_patient_id) to track multiple patients.
+- Main menu CLI supports adding new readings and viewing past readings.
+	- Option 1: Add new reading (with NEWS2 scoring, printing, saving).
+	- Option 2: View past readings.
+	- Option 3: Exit.
+- Error handling: missing keys, invalid input, and proper CSV writing/reading.
+
+### Reflections  
+- Successfully implemented persistence using CSV.
+- NEWS2 scoring and alert messages integrated with live input.
+- Nested dictionary handling and flattening solved for CSV compatibility.
+- Debugging took significant time due to code flow and scoring logic placement.
+- Now have a fully working CLI system for input, scoring, and historical tracking.
+- Took ~7-8 hours, longer than expected due to debugging and restructuring.
+
+
+### Next Steps / Day 4 Prep  
+- Focus: **Visualisation** of historical data.  
+- Options:  
+  - **ASCII charts** (fast, lightweight).  
+  - **Matplotlib plots** (professional, portfolio-ready).  
+- Ensure time/date stamps are included for trend plotting.  
+- Decide which vitals are most useful to visualise (e.g., HR, BP, Temp).
+- Consider plotting NEWS2 scores over time alongside vitals.
+- Prepare sample_run.txt and test.py after full project is stable.
