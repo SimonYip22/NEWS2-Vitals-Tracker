@@ -65,7 +65,9 @@ How we’ll use this on Day 2:
 - Program will flag abnormal values immediately after input or in a summary.
 - Sketch CSV/JSON persistence and prep for trend visualization.
 
+
 ---
+
 
 ## Day 2: Tiered Alert Logic (based on NEWS2 ranges)
 
@@ -145,7 +147,9 @@ How we’ll use this on Day 2:
 - Consider plotting trends and highlighting worst alerts over time.
 - Review unit tests and edge cases (boundary values, multiple simultaneous alerts).
 
+
 ---
+
 
 ## Day 3: Data Persistence (CSV/JSON) & NEWS2 Scoring Implementation
 
@@ -212,4 +216,6 @@ How we’ll use this on Day 2:
 - Consider plotting NEWS2 scores over time alongside vitals.
 - Prepare sample_run.txt and test.py after full project is stable.
 
+
 ---
+
