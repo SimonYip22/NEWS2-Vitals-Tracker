@@ -219,3 +219,92 @@ How we’ll use this on Day 2:
 
 ---
 
+
+## Day 4: Trend Visualisation (ASCII/matplotlib)
+
+### Goals
+1.	Implement visualisation of historical patient data.
+2.	Provide two approaches: ASCII charts (lightweight) and matplotlib charts (portfolio-ready).
+3.	Display time-series trends for key vitals (HR, RR, Temp, SpO₂, BP systolic).
+4.	Allow NEWS2 scores to be plotted alongside vitals for severity tracking.
+5.	Test visualisation with sample patient datasets.
+6.	Format timestamps for readability in plots (including day, month, year, time).
+7.	Improve user experience with clearer CLI prompts, spacing, and separators.
+
+### Goals Explanation
+- ASCII charts: Quick, dependency-free way to visualise trends directly in the terminal. Good for simple testing and debugging.
+- Matplotlib charts: Industry-standard plotting for clean, professional, publication-ready visuals. Essential for portfolio demonstration.
+- Vital trend tracking: Clinicians need to see how a patient’s vitals evolve over time, not just single values.
+- NEWS2 score plots: Helps highlight deterioration or improvement. Graphical context adds clinical meaning to numeric scores.
+- Timestamp formatting: Improves readability and avoids overlapping x-axis labels in plots.
+- Testing with sample data: Ensures system works with both small and larger datasets, avoids runtime errors in real use.
+- UX improvements: Added horizontal dividers and spacing for easier reading of multiple vitals in CLI.
+
+### Plan / Thoughts
+- Implementation order:
+	1.	Load patient history from CSV.
+	2.	Extract relevant columns (timestamp, HR, RR, Temp, SpO₂, BP systolic, NEWS2).
+	3.	Build ASCII chart function for quick terminal trend view.
+	4.	Implement matplotlib visualisation for polished plots.
+	5.	Integrate timestamp formatting using matplotlib.dates.DateFormatter("%d-%b-%y %H:%M").
+	6.	Ensure both plotting functions handle missing or insufficient data (<2 readings).
+- ASCII chart options:
+	- Use a fixed-width proportional scale (e.g., # marks) for trends.
+	- Normalises values between min and max for each vital.
+	- Includes timestamp and actual numeric value for reference.
+	- Divider line ("-" * 60) for clarity between readings.
+	- Suitable for text-only environments, quick previews.
+- Matplotlib:
+	- Line plots for each vital with markers at each data point.
+	- Dual-axis for vitals + NEWS2 score to show correlation.
+	- Combined legend for clarity.
+	- Rotation of x-axis labels and tight_layout() to prevent overlap.
+- Design choices:
+	- Only plot systolic BP (matches NEWS2 scoring rules).
+	- Diastolic BP included in ASCII charts but marked as non-scoring.
+	- Handle missing values gracefully (skip or set default).
+- Testing strategy:
+	- Dummy dataset with 10–15 readings per patient.
+	- Independent testing of plot_ascii and plot_matplotlib.
+	- Check timestamp alignment, value normalization, and correct labelling.
+
+
+### Additions / Changes Made Today
+- Added horizontal separators ("-" * 70) after each CLI output line for improved readability.
+- Aligned numeric outputs using right-alignment (:>3 for most vitals, :>5 for temperature) to make columns visually consistent.
+- Added timestamp formatting in Matplotlib to show day-month-year-hour:minute (%d-%b-%y %H:%M).
+- Updated CLI prompts for clarity (e.g., Add another reading? (y/n)), spacing, and messages confirming patient vitals saved.
+- Implemented dual plotting for NEWS2 scores alongside vitals in Matplotlib.
+- Added checks for patients with insufficient readings to prevent plotting errors.
+- Flattened nested dictionaries for CSV compatibility and smooth integration with plotting functions.
+- Improved handling of Level of Consciousness input in CLI with validation (yes/no/unsure) and mapping to Yes/No/Unsure.
+
+### Difficulties / Debugging / Extra Challenges
+- Nested dictionaries for blood pressure: Needed special handling to flatten for CSV and plotting.
+- Timestamp formatting in Matplotlib: Required importing matplotlib.dates and using DateFormatter to avoid overlapping labels.
+- Handling min=max in ASCII plots: Added conditional to avoid division by zero when all readings for a vital are equal.
+- Dual-axis plotting: Combining NEWS2 score with vitals required separate axes (twinx) and merging legends.
+- CLI alignment issues: Right-aligning numeric values and leaving text like loc unaligned required careful formatting with :>3 and :>5.
+- Input validation: Validating floats (temperature) vs integers (other vitals) needed separate handling in validate_input.
+- ASCII plot normalization and scaling: Normalised values proportionally to plot_width to make trends visually interpretable.
+- Flattened vitals for CSV/plotting: Ensured that nested vitals were flattened consistently for smooth integration with ASCII and Matplotlib.
+- Debugging CSV read/write: Ensuring patient ID mapping worked correctly and new readings appended properly.
+- Mental fatigue: Iterative testing and correcting minor formatting and plotting bugs was draining; required external help for timestamp formatting and final alignment.
+
+### Enhancements from Sample Run Preparation
+- Created a comprehensive sample_run.txt demonstrating all scenarios: normal, mild, moderate, severe alerts, past readings, ASCII trends, and Matplotlib trends.
+- CSV header issues: Earlier patient_id KeyError required prepending correct CSV headers to existing files to ensure historical data could be loaded.
+- Type conversion for ASCII plotting: Values read from CSV were strings; converting to float for plotting fixed TypeError: unsupported operand type(s) for -: 'str' and 'str'.
+- Timestamp formatting in Matplotlib: Required importing matplotlib.dates and using DateFormatter to avoid overlapping x-axis labels.
+- Diastolic BP alert threshold overlap: Original alert tuples for diastolic BP had overlapping ranges, which caused some normal values (e.g., 75 mmHg) to not match any tuple, resulting in runtime errors. Fixed by adjusting the thresholds and implementing a failsafe to return 0 (Normal) when no tuple matches.
+
+### Reflections
+- Persistence paid off: CLI input, CSV storage, ASCII and Matplotlib visualisation now work seamlessly.
+- ASCII charts are useful for quick terminal checks; Matplotlib plots are polished and suitable for portfolio showcase.
+- Data persistence and trend visualisation make the tool clinically interpretable.
+- Debugging timestamp formatting and dual-axis plotting was unexpectedly tricky.
+- UX improvements in CLI (spacing, dividers, clear prompts) greatly improved readability and usability.
+
+
+---
+
