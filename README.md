@@ -114,7 +114,7 @@ python3 vitals_tracker.py
 
 ## Matplotlib Plot Example
 
-![Vitals Tracker Matplotlib Plot](vitals-tracker-matplotlib.png)
+![Vitals Tracker Matplotlib Plot](Vitals-tracker-matplotlib.png)
 
 - **The included `vitals-tracker-matplotlib.png` demonstrates a sample patient's vitals trends over time. It includes**:
     - **Line plots for key vital signs**: Systolic BP, Heart Rate, Respiratory Rate, Temperature, and Oxygen Saturations.
