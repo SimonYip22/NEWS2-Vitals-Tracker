@@ -2,7 +2,7 @@
 **Python | CLI Tool | NEWS2 Scoring | ASCII & Matplotlib Visualisation**
 
 ![Python](https://img.shields.io/badge/python-3.13-blue)
-![Build Status](https://img.shields.io/github/actions/workflow/status/SimonYip22/vitals-tracker-cli/python-tests.yml?branch=main)
+![Build Status](https://img.shields.io/github/actions/workflow/status/SimonYip22/vitals-tracker-cli/python-app.yml?branch=main)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Release](https://img.shields.io/github/v/release/SimonYip22/vitals-tracker-cli)
 ![Issues](https://img.shields.io/github/issues/SimonYip22/vitals-tracker-cli)
