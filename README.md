@@ -2,6 +2,7 @@
 **Python | CLI Tool | NEWS2 Scoring | ASCII & Matplotlib Visualisation | Clinically-Informed**
 
 ![Python](https://img.shields.io/badge/python-3.13-blue)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-Plotting-blueviolet)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/SimonYip22/vitals-tracker-cli/python-app.yml?branch=main)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Release](https://img.shields.io/github/v/release/SimonYip22/vitals-tracker-cli)
