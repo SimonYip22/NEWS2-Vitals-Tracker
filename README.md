@@ -1,5 +1,5 @@
-# Vitals Tracker CLI
-**Python | CLI Tool | NEWS2 Scoring | ASCII & Matplotlib Visualisation**
+# 𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠 𝐚 𝐏𝐲𝐭𝐡𝐨𝐧 𝐂𝐋𝐈 𝐕𝐢𝐭𝐚𝐥𝐬 𝐓𝐫𝐚𝐜𝐤𝐞𝐫 𝐰𝐢𝐭𝐡 𝐀𝐥𝐞𝐫𝐭𝐬 𝐚𝐧𝐝 𝐌𝐨𝐧𝐢𝐭𝐨𝐫𝐢𝐧𝐠 🩺 📈 
+**Python | CLI Tool | NEWS2 Scoring | ASCII & Matplotlib Visualisation | Clinically-Informed**
 
 ![Python](https://img.shields.io/badge/python-3.13-blue)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/SimonYip22/vitals-tracker-cli/python-app.yml?branch=main)
@@ -10,44 +10,67 @@
 ![Stars](https://img.shields.io/github/stars/SimonYip22/vitals-tracker-cli)
 ![Contributors](https://img.shields.io/github/contributors/SimonYip22/vitals-tracker-cli)
 
-A complex **Python-based command-line interface (CLI) tool** for comprehensive patient vitals tracking, **real-time NEWS2 scoring,** and trend visualisation. Supports **ASCII charts** for lightweight terminal-based monitoring and **Matplotlib plots** for professional, portfolio-ready visualisations. Implements robust CSV-based data persistence with patient mapping and strong input validation for clinical reliability.
+A **Python-based CLI tool** for **comprehensive patient vitals tracking**, **real-time NEWS2 scoring**, and **trend visualisation**, designed to replicate real clinical workflows. This system prioritises clinically meaningful metrics, produces **interpretable outputs that reflect true clinical reasoning**, and demonstrates how a clinician’s domain knowledge directly informs scoring, alerts, and trend interpretation. **ASCII charts** provide lightweight terminal-based monitoring, while **Matplotlib plots** deliver portfolio-ready, professional visualisations. Data is persistently stored in **CSV with patient mapping** and robust input validation for clinical reliability.
+
+
+---
+
+## System Workflow
+
+![Vitals Tracker Flowchart](vitals-tracker-flowchart.png)
+*Figure 1: Overview of patient vitals input, NEWS2 scoring, alert logic, and trend visualisation workflow.*
+
+
+---
+
+## Clinical & Technical Highlights
+
+- **Clinically-informed input handling**: Collects vitals and level of consciousness, mapping to structured format.  
+- **Tiered alert logic**: NEWS2 score reflects severity levels clinicians use for escalation decisions.  
+- **Trend visualisation**: ASCII charts for quick CLI checks; Matplotlib plots for detailed analysis and portfolio showcase.  
+- **Patient ID anonymisation**: Ensures privacy and GDPR-compliance for multi-patient tracking.  
+- **Robust error handling**:
+    - Handles CSV header mismatches, data type conversions, and overlapping alert thresholds.  
+    - Ensures reliable plotting and accurate historical analysis.  
+- **Modular architecture**: Functions separated by responsibility (input, scoring, alerting, visualization) for maintainability and expansion.  
+- **Foundation for predictive analytics**: Clinically-informed scoring and trend data enable future AI/ML models for deterioration detection and decision support.  
+
 
 ---
 
 
-## TL;DR
+## How It Works
 
-- Enter patient vitals (BP, HR, RR, Temp, O₂, Level of Consciousness).
-- Automatic **NEWS2 scoring** with **tiered alerts (Normal → Severe)**.
-- Persist historical data in CSV for multiple patients.
-- Retrieve past readings or plot trends in **ASCII or Matplotlib**.
-- Modular, maintainable code for further integration or AI/ML expansion.
+1. **User Input**  
+   - Collects patient vitals (BP, HR, RR, Temp, O₂ sats, Level of Consciousness) via CLI.  
+   - Validates input ranges and types to ensure clinical reliability.  
+   - Maps multiple patients to anonymized IDs for longitudinal tracking.
 
----
+2. **Scoring & Alerts**  
+   - Computes **NEWS2 score** based on entered vitals.  
+   - **Integrated NEWS2 scoring determines tiered alert level** (Normal → Mild → Moderate → Severe) reflecting real-world clinical prioritisation.  
+   - Provides user-friendly alert messages highlighting actionable concerns.
 
+3. **Trend & Output Display**  
+   - Prints recent patient readings with aligned formatting for readability.  
+   - **Generates visualisations**:
+     - ASCII charts for quick terminal-based monitoring.  
+     - Matplotlib plots for portfolio-quality, dual-axis trends (vitals + NEWS2).  
+   - Supports retrieval of historical data for multiple patients, enabling longitudinal trend analysis.
 
-## Features
-
-- **Full patient vitals capture**: Systolic/Diastolic BP, Heart Rate, Respiratory Rate, Temperature, Oxygen Saturations, Level of Consciousness.
-- **NEWS2 scoring integrated with tiered alert levels**: Normal, Mild, Moderate, Severe.
-- **Patient ID anonymisation**: Unique IDs ensure GDPR-compliant data handling
-- **Data persistence**: Stores historical readings in CSV (vitals.csv) with patient mapping (patient_mapping.csv).
-- **Trend visualisation**:
-    - ASCII charts for lightweight CLI monitoring.
-    - Matplotlib charts with dual-axis (vitals + NEWS2 score) for professional visualisation.
-- **Robust input validation**: Ensures safe ranges, correct data types, and consistent nested data structures.
-- **Comprehensive error handling**:
-    - Fixed CSV header issues to avoid KeyErrors.
-    - Type conversion for plotting prevents string/float errors.
-    - Adjusted diastolic BP alert ranges to prevent overlapping thresholds.
-- **Sample run included**: Demonstrates all alert scenarios, past readings, and plotting outputs.
 
 ---
 
 
 ## Technical Highlights
 
-- Nested dictionary flattening for CSV compatibility and smooth plotting.
+- **Robust input validation**: Ensures safe ranges, correct data types, and consistent nested data structures.
+- **Comprehensive error handling**:
+    - Fixed CSV header issues to avoid KeyErrors.
+    - Type conversion for plotting prevents string/float errors.
+    - Adjusted diastolic BP alert ranges to prevent overlapping thresholds.
+- **Data persistence**: Stores historical readings in CSV (vitals.csv) with patient mapping (patient_mapping.csv).
+- **Nested dictionary flattening**: for CSV compatibility and smooth plotting.
 - **ASCII normalisation**: Values scaled proportionally to fixed-width bars for quick interpretation.
 - **Matplotlib dual-axis plotting**: Overlay NEWS2 scores with vitals over time.
 - **Timestamp formatting**: ISO timestamps converted and formatted for readability in plots.
@@ -298,29 +321,37 @@ oxygen_sats trends:
 
 ```text
 vitals-tracker-cli/
+├── .github/
+    └── workflows/
+        └── python-app.yml
 ├── 01_miscellaneous/
+├── test_vitals_tracker/
+    └── test_patient_mapping.csv
+    └── test_vitals_tracker.csv
+    └── test_vitals.csv
 ├── notes.md
 ├── patient_mapping.csv
 ├── README.md
 ├── reflection.md
 ├── requirements.txt
 ├── sample_run.txt
-├── test_vitals_tracker.py
 ├── vitals_tracker.py
+├── vitals-tracker-flowchart.png
 ├── vitals-tracker-matplotlib.png
 ├── vitals.csv
 ```
 
 **Explanations**:
+- **.github/workflows/python-app.yml** — GitHub Actions workflow for running tests
 - **01_miscellaneous/** — Misc files, helper notes.
+- **test_vitals_tracker/** — Automated unit tests, and test csv files
 - **notes.md** — Daily development logs
 - **patient_mapping.csv** — Maps patient names + DOB to IDs.
 - **README.md** — Project documentation
 - **reflection.md** - Final project reflection
-- **requirements.txt** - Required matplotlib 
 - **sample_run.txt** — Demonstrates all scenarios.
-- **test_vitals_tracker.py** — Automated unit tests.
 - **vitals_tracker.py** — Main CLI program.
+- **vitals-tracker-flowchart.png** - Flowchart explaining logic
 - **vitals-tracker-matplotlib.png** — Example Matplotlib output.
 - **vitals.csv** — Historical patient readings.
 
