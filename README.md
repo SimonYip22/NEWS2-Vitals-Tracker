@@ -325,6 +325,7 @@ vitals-tracker-cli/
     └── workflows/
         └── python-app.yml
 ├── 01_miscellaneous/
+    └── requirements.txt
 ├── test_vitals_tracker/
     └── test_patient_mapping.csv
     └── test_vitals_tracker.csv
@@ -333,7 +334,6 @@ vitals-tracker-cli/
 ├── patient_mapping.csv
 ├── README.md
 ├── reflection.md
-├── requirements.txt
 ├── sample_run.txt
 ├── vitals_tracker.py
 ├── vitals-tracker-flowchart.png
@@ -343,7 +343,7 @@ vitals-tracker-cli/
 
 **Explanations**:
 - **.github/workflows/python-app.yml** — GitHub Actions workflow for running tests
-- **01_miscellaneous/** — Misc files, helper notes.
+- **01_miscellaneous/requirements.txt** — Misc files, helper notes, requirements.txt
 - **test_vitals_tracker/** — Automated unit tests, and test csv files
 - **notes.md** — Daily development logs
 - **patient_mapping.csv** — Maps patient names + DOB to IDs.
