@@ -15,3 +15,8 @@ env/
 
 # Logs
 *.log
+
+# So runtime data/plots don’t leak into repo.
+*.csv
+__pycache__/
+*.png
