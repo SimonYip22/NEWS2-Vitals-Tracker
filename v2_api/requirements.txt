@@ -1,4 +1,17 @@
-fastapi
-uvicorn
-pytest
-matplotlib
+# Core API
+fastapi>=0.105
+uvicorn>=0.23
+
+# Visualization
+matplotlib>=3.8
+
+# Data handling (optional if used)
+pandas>=2.1.0
+
+# CLI enhancements (optional)
+colorama>=0.4.6
+
+# Testing
+pytest>=8.4
+httpx>=0.24
+anyio>=4.10
