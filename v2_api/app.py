@@ -1,8 +1,11 @@
 # -------------------------
 # IMPORTS
 # -------------------------
-from fastapi import FastAPI, Body
+from fastapi import FastAPI
 from fastapi.responses import Response
+from pydantic import BaseModel, Field
+from typing import Optional
+
 from v2_api.vitals_tracker_v2 import (
     add_vitals,
     get_patient_vitals,
@@ -15,6 +18,28 @@ import json  # <-- needed for json.dumps
 # FASTAPI APP INSTANCE
 # -------------------------
 app = FastAPI(title="Clinically-Informed Vitals Tracker API v2")
+
+# -------------------------
+# Pydantic Models
+# -------------------------
+class BloodPressure(BaseModel):
+    systolic: int = Field(..., example=120)
+    diastolic: int = Field(..., example=80)
+
+class VitalsInput(BaseModel):
+    Blood_pressure: BloodPressure = Field(..., alias="Blood pressure")
+    Heart_rate: int = Field(..., alias="Heart rate", example=75)
+    Respiratory_rate: int = Field(..., alias="Respiratory rate", example=18)
+    Temperature: float = Field(..., example=37.0)
+    Oxygen_saturations: int = Field(..., alias="Oxygen saturations", example=98)
+    Level_of_consciousness: str = Field(
+        ...,
+        alias="Level of consciousness (fully awake and responsive?)",
+        example="Yes"
+    )
+
+    class Config:
+        populate_by_name = True  # allows JSON keys with spaces to map correctly
 
 # -------------------------
 # ROOT ENDPOINT
@@ -47,12 +72,8 @@ def format_alerts_horizontal(alerts: dict) -> dict:
 # 1. ADD NEW VITALS
 # -------------------------
 @app.post("/add_vitals/")
-def add_vitals_api(
-    patient_name: str,
-    dob: str,
-    vitals: dict = Body(..., description="Patient vitals as JSON")
-):
-    result = add_vitals(patient_name, dob, vitals)
+def add_vitals_api(patient_name: str, dob: str, vitals: VitalsInput):
+    result = add_vitals(patient_name, dob, vitals.dict(by_alias=True))
 
     # Format alerts for compact display
     formatted_alerts = format_alerts_horizontal(result["alerts"])
