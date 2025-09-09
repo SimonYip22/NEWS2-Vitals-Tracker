@@ -11,18 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'  # 3.13 is too new, some deps may not support yet
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # stable version for FastAPI + deps
 
-    - name: Upgrade pip
-      run: python -m pip install --upgrade pip
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
 
-    - name: Install Python requirements
-      run: pip install -r v2_api/requirements.txt
+      - name: Install Python requirements
+        run: pip install -r requirements.txt   # root-level requirements.txt
 
-    - name: Run FastAPI tests
-      run: pytest v2_api/ -v --disable-warnings
+      - name: Run FastAPI tests
+        run: pytest v2_api/ -v --disable-warnings
