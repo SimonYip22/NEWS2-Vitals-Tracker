@@ -13,12 +13,12 @@ def test_add_vitals_and_fetch():
         "patient_name": "Test Patient",
         "dob": "01/01/00",
         "vitals": {
-            "Blood pressure": {"systolic": 120, "diastolic": 80},
-            "Heart rate": 75,
-            "Respiratory rate": 18,
-            "Temperature": 37.0,
-            "Oxygen saturations": 98,
-            "Level of consciousness (fully awake and responsive?)": "Yes"
+            "blood_pressure": {"systolic": 120, "diastolic": 80},
+            "heart_rate": 75,
+            "respiratory_rate": 18,
+            "temperature": 37.0,
+            "oxygen_saturations": 98,
+            "consciousness": "Yes"
         }
     }
     response = client.post("/add_vitals/", json=vitals_payload)
