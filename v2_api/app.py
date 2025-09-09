@@ -9,7 +9,7 @@ from v2_api.vitals_tracker_v2 import (
     get_trends,
     get_trends_json
 )
-import json
+import json  # <-- needed for json.dumps
 
 # -------------------------
 # FASTAPI APP INSTANCE
@@ -35,10 +35,9 @@ def format_alerts_horizontal(alerts: dict) -> dict:
     formatted = {}
     for vital, value in alerts.items():
         if isinstance(value, dict):
-            # For nested dicts (like Blood pressure), compact inner dicts
             formatted[vital] = {
-                k: {kk: vv for kk, vv in vv.items()} if isinstance(vv, dict) else vv
-                for k, vv in value.items()
+                k: v if not isinstance(v, dict) else {kk: vv for kk, vv in v.items()}
+                for k, v in value.items()
             }
         else:
             formatted[vital] = value
@@ -55,7 +54,7 @@ def add_vitals_api(
 ):
     result = add_vitals(patient_name, dob, vitals)
 
-    # Format alerts for horizontal display
+    # Format alerts for compact display
     formatted_alerts = format_alerts_horizontal(result["alerts"])
 
     response_dict = {
@@ -64,7 +63,7 @@ def add_vitals_api(
         "alerts": formatted_alerts
     }
 
-    # Return JSON with indentation but compact inner objects
+    # Pretty-print outer JSON, compact inner dicts
     return Response(
         content=json.dumps(response_dict, indent=2, separators=(",", ": ")),
         media_type="application/json"
@@ -75,10 +74,7 @@ def add_vitals_api(
 # -------------------------
 @app.get("/patient/{patient_id}")
 def get_patient_vitals_api(patient_id: str):
-    """
-    Retrieve all saved vitals for a patient.
-    Returns JSON list of historical vitals.
-    """
+    """Retrieve all saved vitals for a patient as JSON list."""
     return get_patient_vitals(patient_id)
 
 # -------------------------
@@ -86,9 +82,7 @@ def get_patient_vitals_api(patient_id: str):
 # -------------------------
 @app.get("/trends/{patient_id}/png")
 def get_trends_png(patient_id: str):
-    """
-    Returns a Matplotlib plot of vitals and NEWS2 trends as PNG image.
-    """
+    """Return a PNG plot of vitals and NEWS2 trends."""
     return get_trends(patient_id)
 
 # -------------------------
@@ -96,7 +90,5 @@ def get_trends_png(patient_id: str):
 # -------------------------
 @app.get("/trends/{patient_id}/json")
 def get_trends_json_api(patient_id: str):
-    """
-    Return patient vitals and NEWS2 history as JSON (structured data).
-    """
+    """Return patient vitals and NEWS2 history as JSON."""
     return get_trends_json(patient_id)
