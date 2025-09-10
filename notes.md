@@ -308,3 +308,64 @@ How we’ll use this on Day 2:
 
 ---
 
+
+# v2 — FastAPI / API  
+
+## Goals  
+- Extend CLI NEWS2 tool into a deployable API.  
+- Provide structured JSON output for patient vitals, NEWS2 scoring, alerts, and trend data.  
+- Support both human-readable (PNG plots) and machine-readable (JSON) outputs.  
+- Deploy live for recruiter accessibility and professional demonstration.  
+
+---
+
+## Implementation  
+- **Endpoints (`app.py`)**:  
+  - `GET /` → Root message (API availability check).  
+  - `POST /add_vitals/` → Accepts JSON payload of patient vitals, stores data in CSV, calculates NEWS2 score, and returns structured JSON with alerts.  
+  - `GET /patient/{id}` → Retrieve patient history as JSON (all stored vitals + scores).  
+  - `GET /trends/png/{id}` → Generates a **Matplotlib PNG** plot of vital sign trends and NEWS2 over time.  
+  - `GET /trends/json/{id}` → Returns the same trend data in structured **JSON** format for programmatic use.  
+
+- **Pydantic model** validates incoming vitals payloads.  
+
+- **Deployment**:  
+  - Hosted live on **Render** → [https://vitals-tracker-cli.onrender.com/docs](https://vitals-tracker-cli.onrender.com/docs) 
+  - Swagger UI auto-documents endpoints for usability and interactive testing.  
+
+---
+
+## Testing  
+- Automated tests via **pytest** + **httpx** for endpoint validation.  
+- Covers all key routes:  
+  - `/` root availability  
+  - `/add_vitals/` input validation + NEWS2 scoring  
+  - `/patient/{id}` retrieval of patient history  
+  - `/trends/png/{id}` generation of PNG trend plots  
+  - `/trends/json/{id}` JSON structure + field correctness  
+- Ensures outputs remain **consistent with v1 CLI logic** (scoring, alerts, persistence).  
+
+---
+
+## Continuous Integration (CI/CD)  
+- Configured **GitHub Actions** workflow to ensure production-readiness:  
+  - Runs automated tests **on every push** and on a **weekly schedule**.  
+  - Validates **live Render deployment**, not just local code.  
+
+- **Coverage includes**:  
+  - Endpoint availability.  
+  - Input validation → scoring consistency with CLI.  
+  - Correctness of PNG/JSON trend outputs.  
+
+- Guarantees the deployed API remains **stable, reliable, and recruiter-ready**.  
+
+---
+
+## Reflections  
+- Wrapping the CLI into a FastAPI backend demonstrated **scalability and modularity**.  
+- Providing **both PNG and JSON trend outputs** showed versatility: clinician-facing visuals vs. machine-readable data.  
+- Deploying on Render turned the project into a **production-ready demo**.  
+- GitHub Actions CI/CD introduced **DevOps practices**, ensuring reliability over time — a key differentiator from typical student projects.  
+- Overall, v2 evolved the project from a CLI tool into a **full-stack, continuously validated clinical decision-support service**.  
+
+---
