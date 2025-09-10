@@ -30,7 +30,7 @@
 ![Stars](https://img.shields.io/github/stars/SimonYip22/vitals-tracker-cli) 
 ![Contributors](https://img.shields.io/github/contributors/SimonYip22/vitals-tracker-cli)
 
-A **Python-based CLI tool** for **comprehensive patient vitals tracking**, **real-time NEWS2 scoring**, and **trend visualisation**, designed to replicate real clinical workflows. Users can interact via **command-line prompts (CLI)** or a **deployable FastAPI JSON API (v2)**. Outputs are **clinically interpretable**, include **tiered alerts**, and support **longitudinal monitoring** with CSV persistence.
+A **Python-based CLI and FastAPI tool** for **comprehensive patient vitals tracking**, **real-time NEWS2 scoring**, and **trend visualisation**, designed to replicate real clinical workflows. Users can interact via **command-line prompts (CLI)** or a **deployable FastAPI JSON API (v2)**. Outputs are **clinically interpretable**, include **tiered alerts**, and support **longitudinal monitoring** with CSV persistence.
 
 Supports clinicians in real-time patient monitoring; reduces risk of missed deterioration; integrates seamlessly into hospital EHRs; provides actionable alerts with NEWS2 scoring.
 
