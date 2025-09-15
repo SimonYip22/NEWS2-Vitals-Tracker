@@ -31,9 +31,9 @@ jobs:
 
       # ---------------- Local API tests ----------------
       - name: Run Local API tests
-        run: PYTHONPATH=. pytest v2_api/test_api_endpoints.py -v --disable-warnings
+        run: PYTHONPATH=. pytest v2_api/test_api_endpoint.py -v --disable-warnings
 
       # ---------------- Live API tests ----------------
       - name: Run Live API tests (optional)
         if: github.event_name == 'schedule'
-        run: RUN_LIVE=true PYTHONPATH=. pytest v2_api/test_api_endpoints.py -v --disable-warnings
+        run: RUN_LIVE=true PYTHONPATH=. pytest v2_api/test_api_endpoint.py -v --disable-warnings
