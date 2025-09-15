@@ -1,13 +1,15 @@
-name: FastAPI application
+name: FastAPI Application
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  schedule:
+    - cron: "0 12 * * 1"   # weekly run
 
 jobs:
-  build:
+  api-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'  # stable version for FastAPI + deps
+          python-version: '3.11'
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
@@ -25,7 +27,13 @@ jobs:
       - name: Install dependencies
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install pytest httpx  # safety net to ensure test deps always present
+          pip install pytest httpx  # ensure test deps present
 
-      - name: Run FastAPI tests
-        run: PYTHONPATH=. pytest v2_api/ -v --disable-warnings
+      # ---------------- Local API tests ----------------
+      - name: Run Local API tests
+        run: PYTHONPATH=. pytest v2_api/test_api_endpoints.py -v --disable-warnings
+
+      # ---------------- Live API tests ----------------
+      - name: Run Live API tests (optional)
+        if: github.event_name == 'schedule'
+        run: RUN_LIVE=true PYTHONPATH=. pytest v2_api/test_api_endpoints.py -v --disable-warnings
