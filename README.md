@@ -1,4 +1,4 @@
-# 𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠 𝐚 𝐍𝐄𝐖𝐒2 𝐏𝐲𝐭𝐡𝐨𝐧 𝐂𝐋𝐈 & 𝐅𝐚𝐬𝐭𝐀𝐏𝐈 𝐕𝐢𝐭𝐚𝐥𝐬 𝐓𝐫𝐚𝐜𝐤𝐞𝐫 🩺📈
+# 𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠 𝐚 𝐍𝐄𝐖𝐒2 𝐕𝐢𝐭𝐚𝐥𝐬 𝐓𝐫𝐚𝐜𝐤𝐞𝐫 𝐰𝐢𝐭𝐡 𝐀𝐥𝐞𝐫𝐭𝐬, 𝐌𝐨𝐧𝐢𝐭𝐨𝐫𝐢𝐧𝐠 & 𝐕𝐢𝐬𝐮𝐚𝐥𝐢𝐬𝐚𝐭𝐢𝐨𝐧 (𝐂𝐋𝐈 & 𝐅𝐚𝐬𝐭𝐀𝐏𝐈) 🩺📈
 **Python | CLI Tool | FastAPI | Pydantic | JSON Output | NEWS2 Scoring | ASCII & Matplotlib Visualisation | Clinically-Informed**
 
 
