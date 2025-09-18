@@ -1,4 +1,4 @@
-# 𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠 𝐚 NEWS2 𝐏𝐲𝐭𝐡𝐨𝐧 𝐂𝐋𝐈 & Fast𝐀𝐏𝐈 𝐕𝐢𝐭𝐚𝐥𝐬 𝐓𝐫𝐚𝐜𝐤𝐞𝐫 🩺📈
+# 𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠 𝐚 𝐍𝐄𝐖𝐒2 𝐏𝐲𝐭𝐡𝐨𝐧 𝐂𝐋𝐈 & 𝐅𝐚𝐬𝐭𝐀𝐏𝐈 𝐕𝐢𝐭𝐚𝐥𝐬 𝐓𝐫𝐚𝐜𝐤𝐞𝐫 🩺📈
 **Python | CLI Tool | FastAPI | Pydantic | JSON Output | NEWS2 Scoring | ASCII & Matplotlib Visualisation | Clinically-Informed**
 
 
@@ -349,8 +349,8 @@ uvicorn app:app --reload
 **Clone and run**:
 
 ```bash
-git clone https://github.com/SimonYip22/vitals-tracker-cli.git
-cd vitals-tracker-cli
+git clone https://github.com/SimonYip22/NEWS2-Vitals-Tracker.git
+cd NEWS2-Vitals-Tracker
 python3 vitals_tracker.py
 ```
 
@@ -563,14 +563,14 @@ pytest -v
 ## Project Structure
 
 ```text
-vitals-tracker-cli/
+NEWS2-Vitals-Tracker/
 ├── .github/
 │   └── workflows/
 │       ├── fastapi-app.yml 
 │       └── python-app.yml
 ├── test_vitals_tracker_CLI/
 │   ├── test_patient_mapping.csv
-│   ├── test_vitals_tracker.csv
+│   ├── test_vitals_tracker.py
 │   └── test_vitals.csv
 ├── v2_api/
 │   ├── app.py
